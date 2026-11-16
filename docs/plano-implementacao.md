@@ -1,6 +1,6 @@
 # Plano de implementação — estado em 16/11/2026
 
-**Status**: MVP local implementado e verificado; publicação externa não iniciada.
+**Status**: MVP publicado em `BrunoCHRBN/valida-rota`; deploy no Render pronto para aplicar, pendente de conta no provedor.
 
 ## Etapas do plano
 
@@ -15,8 +15,8 @@
 | 7. Frontend | concluída | React 19 + TS + Vite; build de produção passa |
 | 8. Verificação no navegador | parcial | layout desktop e mobile conferidos; contraste medido; falta varredura completa de teclado |
 | 9. Documentação | concluída | README, docs de design, auditoria e este plano |
-| 10. Publicação | não iniciada | depende de decisão de deploy e autorização do repositório |
-| 11. Verificação ao vivo | não iniciada | depende da etapa 10 |
+| 10. Publicação | concluída | repositório público com 7 commits, descrição e 8 topics; card na vitrine renderizado e conferido no navegador |
+| 11. Verificação ao vivo | bloqueada | depende de conta no Render: não há host nesta máquina nem credencial de PaaS |
 
 ## Decisões tomadas durante a implementação
 
@@ -66,8 +66,10 @@ O terceiro caso é o registro mais importante: um teste verde que passava pelo m
 
 ## Pendências
 
-- Deploy do backend: modelo decidido (container com volume persistente, medido nesta rodada). Falta o **host**: não há VPS nem CLI de PaaS configurada na máquina.
-- Publicação do repositório `BrunoCHRBN/valida-rota`: ação externa, depende de autorização.
+- Deploy no Render: `render.yaml` escrito e validado; imagem verificada com `PORT=10000`, que é o padrão do provedor. Falta apenas aplicar o Blueprint, o que exige conta no Render — não há credencial de PaaS nesta máquina.
+- Persistência em produção: no plano free o SQLite é descartado a cada spin-down. Decidir se fica assim (demonstração sempre limpa) ou se sobe para plano pago com disco.
+- Exposição sem autenticação: os endpoints de escrita ficam abertos na URL pública. Se o deploy for adiante com disco pago, avaliar guarda de escrita antes.
 - Cobertura de geocodificação com provider permitido em endereço brasileiro: não medida.
 - Varredura completa de teclado e zoom a 200%: parcialmente coberta pelos estilos, falta exercitar.
 - Distâncias do corredor: sintéticas; decisão de manter como limitação declarada ou medir contra fonte real.
+- Vitrine: o card foi commitado localmente (`29faf42`), mas o projeto do portfólio não tem remote configurado — publicar a vitrine é decisão separada.

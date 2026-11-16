@@ -1,6 +1,6 @@
 # AUDITORIA — ValidaRota: estado antes da execução
 
-**Data**: 16/11/2026, 12:52 (GMT-3) · **Status**: execução local iniciada às 13:00 por instrução do Bruno; publicação externa não iniciada · **Escopo original**: revisão de contexto e pendências antes de executar.
+**Data**: 16/11/2026, 12:52 (GMT-3) · **Status**: execução local concluída às 13:00; publicação feita às 14:10 em `BrunoCHRBN/valida-rota`, com deploy no Render pendente de conta no provedor · **Escopo original**: revisão de contexto e pendências antes de executar.
 
 Base lida: `PLANO_VALIDA_ROTA.md` (310 linhas), `PROPOSTA_DESIGN_SYSTEM.md` (144), `PROPOSTA_SYSTEM_DESIGN.md` (165), memória do projeto e decisões registradas na conversa.
 
