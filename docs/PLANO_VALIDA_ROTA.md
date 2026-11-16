@@ -252,7 +252,7 @@ No modelo, `ValePedagio` guarda operadora, TAG, placa, saldo e validade; `Lancam
 7. Frontend consumindo a API, seguindo os tokens e componentes de `PROPOSTA_DESIGN_SYSTEM.md`. Sem gradiente decorativo, sem glassmorphism, sem emoji em botão.
 8. Verificação no navegador: contraste medido com ferramenta, foco visível, navegação por teclado e zoom a 200%.
 9. Escrita dos documentos em `docs/` no padrão da casa: tese, evidência medida, explícito sobre o que não foi verificado.
-10. Publicação, na ordem: commit local → criar repositório público `BrunoCHRBN/valida-rota` → configurar remote e push → deploy do backend → deploy do frontend → GitHub Website apontando para o deploy → inclusão do card no portfólio.
+10. Publicação, na ordem: commit local → criar repositório público `BrunoCHRBN/valida-rota` → configurar remote e push → deploy do artefato único (o container entrega API e interface no mesmo processo; o SQLite exige volume persistente) → preencher `homepage` do repositório com a URL do deploy → inclusão do card no portfólio. A vitrine lê `repo.homepage` (`src/App.tsx`), então o card pode entrar antes do deploy sem link quebrado — o ícone de demonstração simplesmente não aparece.
 11. Verificação ao vivo com `curl` no endpoint deployado e conferência do card na vitrine.
 
 ## 13. Prioridade para uso real
