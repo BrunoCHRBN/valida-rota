@@ -66,6 +66,16 @@ cd frontend
 npm run build
 ```
 
+Acessibilidade de foco (com o frontend no ar):
+
+```bash
+cd frontend
+npm install --no-save playwright
+npm run a11y
+```
+
+O script percorre a página por `Tab`, exige anel visível em toda parada de foco e verifica se o contêiner da tabela recebe foco. Sai com código 1 quando algo falha — foi assim que os dois defeitos de foco foram encontrados.
+
 ## O que o gate verifica
 
 Cadastro e caminho: `NO_NAO_EXISTE`, `ARESTA_INCOMPLETA`, `TRECHO_INALCANCAVEL`, `DADOS_DIVERGENTES`.
@@ -111,4 +121,5 @@ render.yaml
 - Não há autenticação. Não publicar endpoints de escrita sem reverse proxy ou auth básica.
 - A importação de VPO é CSV; não há integração com operadora de TAG.
 - A geocodificação com provider real não foi medida em endereço brasileiro.
+- Acessibilidade medida em Chromium: 45 paradas de foco, todas com anel visível; sem rolagem horizontal a 200% de zoom e a 320 CSS px. Não exercitado com leitor de tela. Cada campo de hora custa três paradas de foco no Chromium (hora, minuto, seletor) contra uma no Firefox — escolha declarada, para manter o seletor nativo.
 - O texto da Resolução ANTT 6.024/2023 foi localizado na base oficial; a alegação de exclusividade eletrônica do VPO desde 01/01/2025 não foi confirmada em fonte oficial e não é codificada.

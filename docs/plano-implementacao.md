@@ -13,7 +13,7 @@
 | 5. API e SQLite | concluída | 17 caminhos / 20 operações no `openapi.json`, seed determinístico, testes com `TestClient` |
 | 6. Geocodificação e VPO | concluída | provider sintético, validação de coordenadas, conciliação CSV |
 | 7. Frontend | concluída | React 19 + TS + Vite; build de produção passa |
-| 8. Verificação no navegador | parcial | layout desktop e mobile conferidos; contraste medido; falta varredura completa de teclado |
+| 8. Verificação no navegador | concluída | layout desktop e mobile conferidos; contraste medido; varredura de teclado e reflow a 200% executada e dois defeitos corrigidos |
 | 9. Documentação | concluída | README, docs de design, auditoria e este plano |
 | 10. Publicação | concluída | repositório público com 7 commits, descrição e 8 topics; card na vitrine renderizado e conferido no navegador |
 | 11. Verificação ao vivo | bloqueada | depende de conta no Render: não há host nesta máquina nem credencial de PaaS |
@@ -50,6 +50,23 @@
 | porta padrão | sem `PORT`, escuta 8000; compose inalterado |
 
 
+## Varredura de acessibilidade
+
+Executada com Chromium via Playwright, não por inspeção do CSS: `Tab` real, comparação de pixel antes e depois do foco, e leitura das pseudo-classes que casam em cada parada.
+
+| Medida | Antes | Depois |
+| --- | --- | --- |
+| Paradas de foco na página inteira | 45 | 45 |
+| Paradas **sem anel visível** | 5 | 0 |
+| Reflow 640×512 (200% de zoom) | sem rolagem horizontal | sem rolagem horizontal |
+| Reflow 320 CSS px | sem rolagem horizontal; tabela estoura e rola no próprio contêiner | idem |
+
+**Defeito 1 — o anel sumia no meio do campo de hora.** O `input[type=time]` do Chromium tem subcampos internos (hora, minuto, seletor). No terceiro, `:focus` e `:focus-visible` deixam de casar e o anel desaparecia com o campo ainda ativo. Medido: `focus:false`, `visivel:false`, `dentro:true`. A primeira tentativa (`input[type='time']:focus`) **não corrigiu** — o teste continuou acusando o passo 3. Só `:focus-within` cobre o campo inteiro.
+
+**Defeito 2 — a tabela rolava sem teclado.** Em tela estreita a tabela de ordem de entrega rola na horizontal dentro de `.tabela-scroll`; sem `tabindex` o teclado não alcança a rolagem e as colunas da direita ficam inacessíveis. Corrigido com `tabindex={0}`, `role="region"` e `aria-label`.
+
+**Limitação declarada:** cada campo de hora custa três paradas de foco no Chromium (hora, minuto, seletor), contra uma no Firefox. São 5 campos, 15 paradas onde poderiam ser 5. Não troquei por campo de texto porque perderia o seletor nativo e a validação de formato; fica registrado como escolha, não como desconhecimento.
+
 ## Mutação executada
 
 | Defeito reintroduzido | Testes que falharam | Restauração |
@@ -61,6 +78,8 @@
 | duplicidade de parada deixou de ser checada | `test_parada_repetida_gera_dados_divergentes` | `git checkout -- validacao.py`; testes verdes |
 | montagem do bundle passou a ser incondicional | `test_sem_bundle_a_raiz_nao_e_montada` falhou com `RuntimeError: Directory ... does not exist` | `git checkout -- main.py`; testes verdes |
 | montagem do bundle movida para antes das rotas `/api` | 9 testes falharam com 404/405 e `assert 1 == 12` — o catch-all engoliu a API | `git checkout -- main.py`; testes verdes |
+| regra `:focus-within` do campo de hora removida | `npm run a11y` acusou 5 paradas sem anel, saída 1 | restaurado do backup; saída 0 |
+| `tabIndex` do contêiner da tabela removido | `npm run a11y` acusou "contêiner da tabela alcançável: false", saída 1 | restaurado; saída 0 |
 
 O terceiro caso é o registro mais importante: um teste verde que passava pelo motivo errado. Sem a mutação, ele teria sido aceito como prova de uma regra que não estava sendo exercitada.
 
@@ -70,6 +89,6 @@ O terceiro caso é o registro mais importante: um teste verde que passava pelo m
 - Persistência em produção: no plano free o SQLite é descartado a cada spin-down. Decidir se fica assim (demonstração sempre limpa) ou se sobe para plano pago com disco.
 - Exposição sem autenticação: os endpoints de escrita ficam abertos na URL pública. Se o deploy for adiante com disco pago, avaliar guarda de escrita antes.
 - Cobertura de geocodificação com provider permitido em endereço brasileiro: não medida.
-- Varredura completa de teclado e zoom a 200%: parcialmente coberta pelos estilos, falta exercitar.
+- Acessibilidade: teclado e reflow medidos e corrigidos. Falta leitor de tela (NVDA/Orca) e alto contraste do sistema, não exercitados.
 - Distâncias do corredor: sintéticas; decisão de manter como limitação declarada ou medir contra fonte real.
 - Vitrine: o card foi commitado localmente (`29faf42`), mas o projeto do portfólio não tem remote configurado — publicar a vitrine é decisão separada.

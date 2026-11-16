@@ -25,7 +25,9 @@ export function StopOrderTable({ resultado, nos }: Props) {
         <h2>Ordem de entrega</h2>
         <p>Sequência calculada pelo menor score, não pela ordem de digitação.</p>
       </div>
-      <div className="tabela-scroll">
+      {/* O contêiner rola na horizontal em telas estreitas; sem tabindex o teclado
+          não alcança a rolagem e as colunas da direita ficam inacessíveis. */}
+      <div className="tabela-scroll" tabIndex={0} role="region" aria-label="Ordem de entrega calculada">
         <table>
           <caption className="sr-only">Ordem de entrega calculada</caption>
           <thead>

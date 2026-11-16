@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "a11y": "node scripts/verificar-foco.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",

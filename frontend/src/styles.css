@@ -65,6 +65,15 @@ select {
   outline-offset: 2px;
 }
 
+/* O input de hora do Chromium tem subcampos internos e, no terceiro deles,
+   `:focus` e `:focus-visible` deixam de casar — o anel some no meio do campo.
+   Medido: passo 3 de 4 com `focus:false`, `visivel:false`, `dentro:true`.
+   `:focus-within` é o único que cobre o campo inteiro. */
+input[type='time']:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
