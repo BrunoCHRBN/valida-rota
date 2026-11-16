@@ -9,6 +9,7 @@ import { IntegridadePanel } from './components/IntegridadePanel'
 import { ResultHeader } from './components/ResultHeader'
 import { SimulationForm } from './components/SimulationForm'
 import { StopOrderTable } from './components/StopOrderTable'
+import { VpoPanel } from './components/VpoPanel'
 import { ApiError, api } from './lib/api'
 import type { Catalogos, Diagnostico, SimulacaoForm, SimulacaoResultado } from './types'
 
@@ -120,6 +121,7 @@ export default function App() {
               </section>
               {catalogos && <StopOrderTable resultado={resultado} nos={catalogos.nos} />}
               <CostBreakdown custos={resultado.custos} />
+              <VpoPanel resultado={resultado} />
               <Comparativo resultado={resultado} />
             </>
           ) : (
