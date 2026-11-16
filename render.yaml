@@ -1,0 +1,25 @@
+# Blueprint do Render. Um serviço, um container: o mesmo processo entrega API e interface.
+#
+# Plano free porque o objetivo é demonstração, não produção. Consequência medida
+# na documentação do Render: instância free não aceita disco persistente e perde
+# o filesystem a cada redeploy, restart ou spin-down por inatividade (15 min).
+# O SQLite, portanto, volta ao seed determinístico — o que mantém a demonstração
+# sempre no mesmo estado inicial, e apaga execuções registradas.
+#
+# Para persistência real, troque o plano e descomente o bloco `disk`:
+#   plan: 0.5c-512mb
+#   disk:
+#     name: dados
+#     mountPath: /data
+#     sizeGB: 1
+services:
+  - type: web
+    name: valida-rota
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    envVars:
+      - key: VALIDA_ROTA_DB
+        value: /data/valida_rota.db

@@ -34,7 +34,23 @@ docker compose up --build
 
 A imagem compila o bundle do Vite e o entrega pelo próprio FastAPI (`StaticFiles` montado depois das rotas `/api`). Isso elimina CORS em produção e faz do deploy um artefato único. O banco fica em `/data/valida_rota.db`, em volume nomeado: sobrevive a `docker compose down` e a restart do container.
 
+O processo escuta `${PORT:-8000}`. Localmente, 8000; em PaaS que injeta `PORT` (o Render usa 10000 por padrão), ele acompanha sem alteração de imagem.
+
 Sem `index.html` no diretório do bundle, o processo sobe como API pura — é o modo que os testes exercitam.
+
+### Deploy no Render
+
+O repositório traz `render.yaml`. No painel do Render: **New → Blueprint**, apontar para este repositório, aplicar.
+
+O plano escolhido é o **free**, e isso tem consequência declarada — verificada na documentação do Render em 16/11/2026:
+
+- instância free **não aceita disco persistente**; só plano pago;
+- o filesystem é efêmero: o SQLite volta ao seed determinístico a cada redeploy, restart ou spin-down (15 min sem tráfego);
+- o primeiro acesso depois do spin-down leva cerca de um minuto.
+
+Para persistência real, troque `plan: free` por `plan: 0.5c-512mb` e descomente o bloco `disk` do blueprint (mount em `/data`).
+
+**Antes de apontar uma URL pública:** não há autenticação. `POST /api/simular`, `/api/execucoes`, `/api/veiculos` e `/api/vales-pedagio` ficam abertos para quem tiver o endereço. No plano free o estrago é limitado porque o banco é descartado no spin-down; com disco pago, não é.
 
 Testes:
 
@@ -86,6 +102,7 @@ docs/
   plano-implementacao.md
 Dockerfile
 docker-compose.yml
+render.yaml
 ```
 
 ## Limitações declaradas

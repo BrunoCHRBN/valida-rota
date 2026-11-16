@@ -46,6 +46,8 @@
 | asset do bundle (`/assets/index-*.js`) | 200, `text/javascript` |
 | `POST /api/simular` no container | `aprovada_com_avisos`, 60 km, `tempo_total_h` 3,4556 |
 | persistência | simulação sobreviveu a `docker restart`; `valida_rota.db` em `/data`, dono `valida` |
+| porta injetada | com `PORT=10000` (padrão do Render), `/api/health` e `/` respondem 200; healthcheck do container em `healthy` |
+| porta padrão | sem `PORT`, escuta 8000; compose inalterado |
 
 
 ## Mutação executada
