@@ -38,6 +38,8 @@ def test_prioridade_alta_aceita_km_maior_para_nao_perder_janela():
     resultado = otimizar("sao-paulo", paradas, matriz, perfil, setores)
     assert resultado.ordem[0] == "guarulhos"
     assert resultado.violacao_janela_min > 0
+    # 26 km a 45 km/h = 24,67 min de atraso; prioridade 9 → 9 * 24,67/60.
+    assert resultado.penalidade_prioridade == pytest.approx(3.7, abs=1e-2)
 
 
 def test_limite_de_oito_paradas_e_erro_explicito():

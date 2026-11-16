@@ -105,16 +105,16 @@ score = distancia_total
       + ξ · desvio_setor
 ```
 
-`tempo_h` é calculado como soma de `km / velocidade_media_km_h` por aresta, mais `minutos_servico / 60` por parada, mais espera quando a chegada antecede a janela. Sem velocidade por aresta e minutos de serviço por parada, `tempo_h` não teria origem calculável; ambos estão no desenho e precisam entrar no seed.
+`tempo_h` é o tempo de direção: soma de `km / velocidade_media_km_h` por aresta. `tempo_total_h` é a jornada: direção mais `minutos_servico` por parada mais espera quando a chegada antecede a janela. O custo de motorista e o limite de jornada usam `tempo_total_h`; exibir apenas `tempo_h` subestimaria o turno. Sem velocidade por aresta e minutos de serviço por parada, nenhum dos dois teria origem calculável.
 
 Custo e margem:
 
 ```
-diesel       = km · consumo_km_l · preco_diesel
+diesel       = (km / consumo_km_l) · preco_diesel
 pedagio      = Σ pedagio_rs das arestas do caminho
 depreciacao  = km · depreciacao_rs_km
 manutencao   = km · manutencao_rs_km + extra se km_atual + km > km_proxima_revisao
-motorista    = tempo_h · custo_hora
+motorista    = tempo_total_h · custo_hora
 total        = diesel + pedagio + depreciacao + manutencao + motorista
 margem       = receita_rs - total
 margem_pct   = margem / receita_rs
@@ -294,8 +294,8 @@ Motivo: é a única que reúne todas as condições antes da saída do veículo.
 6. Texto oficial da Resolução ANTT 6.024/2023 recuperado em 16/11/2026 na base legislativa da ANTT. A alegação de exclusividade eletrônica desde 01/01/2025 continua sem confirmação em fonte oficial.
 7. Cobertura de geocodificação em endereço brasileiro com provider permitido não foi medida.
 8. Distâncias do corredor paulista são sintéticas e plausíveis, não confrontadas com fonte externa.
-9. Contrastes do design system foram calculados fora do navegador; falta inspeção na UI implementada.
-10. Definir se a origem e o destino podem pertencer a setores diferentes no MVP ou se o gate bloqueia esse caso.
+9. Contrastes medidos no navegador em 16/11: texto principal 13,75:1, secundário 5,51:1, status de rejeição 7,02:1. Todos acima de AA para texto normal.
+10. Decidido em 16/11: origem e destino são isentos da restrição de setor; paradas de entrega fora do setor geram `DESVIO_SETOR`, com rejeição quando o perfil não permite múltiplos setores e aviso quando permite.
 
 ## 17. Fora do MVP
 
@@ -308,4 +308,5 @@ Auth e multi-tenant, mapa interativo e tiles, coordenadas reais de clientes, API
 - `/home/bruno-vsantos/Projetos/valida-rota/docs/PROPOSTA_DESIGN_SYSTEM.md`
 - `/home/bruno-vsantos/Projetos/valida-rota/docs/PROPOSTA_SYSTEM_DESIGN.md`
 - `/home/bruno-vsantos/Projetos/valida-rota/docs/AUDITORIA_PRE_EXECUCAO.md` (estado das pendências em 16/11)
+- `/home/bruno-vsantos/Projetos/valida-rota/docs/plano-implementacao.md` (estado da execução)
 - `/home/bruno-vsantos/Projetos/bruno-portfolio-starter/src/data/project-overrides.ts` (entrada da vitrine, após a publicação)
