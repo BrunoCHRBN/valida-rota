@@ -1,0 +1,21 @@
+[project]
+name = "valida-rota"
+version = "0.1.0"
+description = "Gate de aceitação de rotas rodoviárias: valida antes de emplacar."
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi==0.163.1",
+    "pydantic==2.14.3",
+    "uvicorn==0.54.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "httpx==0.28.1",
+    "pytest==9.2.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-q"

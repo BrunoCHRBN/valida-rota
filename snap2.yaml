@@ -1,0 +1,163 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e10]:
+      - heading "ValidaRota" [level=1] [ref=e11]
+      - paragraph [ref=e12]: Valide a rota antes de emplacar. O gate devolve o motivo de cada recusa.
+    - generic [ref=e13]: MVP local
+  - main [ref=e14]:
+    - generic [ref=e38]:
+      - generic [ref=e39]:
+        - heading "Simulação" [level=2] [ref=e40]
+        - paragraph [ref=e41]: Origem, paradas e restrições. O gate roda antes de qualquer emplacamento.
+      - group "Rota" [ref=e42]:
+        - generic [ref=e44]:
+          - generic [ref=e45]: Origem
+          - combobox "Origem" [ref=e46]:
+            - option "Campinas"
+            - option "Cubatão"
+            - option "Guarulhos"
+            - option "Jundiaí"
+            - option "Limeira"
+            - option "Osasco"
+            - option "Piracicaba"
+            - option "Ribeirão Preto"
+            - option "Santos"
+            - option "Sorocaba"
+            - option "São Carlos"
+            - option "São Paulo" [selected]
+        - generic [ref=e47]:
+          - generic [ref=e48]:
+            - generic [ref=e49]:
+              - generic [ref=e50]: Parada 1
+              - combobox "Parada 1" [ref=e51]:
+                - option "Campinas"
+                - option "Cubatão"
+                - option "Guarulhos" [selected]
+                - option "Jundiaí"
+                - option "Limeira"
+                - option "Osasco"
+                - option "Piracicaba"
+                - option "Ribeirão Preto"
+                - option "Santos"
+                - option "Sorocaba"
+                - option "São Carlos"
+                - option "São Paulo"
+            - generic [ref=e52]:
+              - generic [ref=e53]: Janela de
+              - textbox "Janela de" [ref=e54]: 09:00
+            - generic [ref=e55]:
+              - generic [ref=e56]: até
+              - textbox "até" [ref=e57]: 12:00
+            - generic [ref=e58]:
+              - generic [ref=e59]: Peso (kg)
+              - spinbutton "Peso (kg)" [ref=e60]: "400"
+            - generic [ref=e61]:
+              - generic [ref=e62]: Prioridade
+              - spinbutton "Prioridade" [ref=e63]: "8"
+            - button "Remover parada 1" [ref=e64] [cursor=pointer]
+          - generic [ref=e68]:
+            - generic [ref=e69]:
+              - generic [ref=e70]: Parada 2
+              - combobox "Parada 2" [ref=e71]:
+                - option "Campinas"
+                - option "Cubatão"
+                - option "Guarulhos"
+                - option "Jundiaí"
+                - option "Limeira"
+                - option "Osasco" [selected]
+                - option "Piracicaba"
+                - option "Ribeirão Preto"
+                - option "Santos"
+                - option "Sorocaba"
+                - option "São Carlos"
+                - option "São Paulo"
+            - generic [ref=e72]:
+              - generic [ref=e73]: Janela de
+              - textbox "Janela de" [ref=e74]: 10:00
+            - generic [ref=e75]:
+              - generic [ref=e76]: até
+              - textbox "até" [ref=e77]: 14:00
+            - generic [ref=e78]:
+              - generic [ref=e79]: Peso (kg)
+              - spinbutton "Peso (kg)" [ref=e80]: "300"
+            - generic [ref=e81]:
+              - generic [ref=e82]: Prioridade
+              - spinbutton "Prioridade" [ref=e83]: "5"
+            - button "Remover parada 2" [ref=e84] [cursor=pointer]
+          - button "Adicionar parada" [ref=e88] [cursor=pointer]
+          - paragraph [ref=e90]: Até 8 paradas. O limite existe porque a ordem é calculada por enumeração completa.
+      - group "Veículo e jornada" [ref=e91]:
+        - generic [ref=e93]:
+          - generic [ref=e94]:
+            - generic [ref=e95]: Veículo
+            - combobox "Veículo" [ref=e96]:
+              - option "Carreta 01"
+              - option "Carreta 02 (revisão vencida)"
+              - option "Semi-Leve 01"
+              - option "Toco 01"
+              - option "Truck 01"
+              - option "VUC 01" [selected]
+          - generic [ref=e97]:
+            - generic [ref=e98]: Motorista
+            - combobox "Motorista" [ref=e99]:
+              - option "Ana Ribeiro · 8 h" [selected]
+              - option "Carlos Menezes · 10 h"
+        - generic [ref=e100]:
+          - generic [ref=e101]:
+            - generic [ref=e102]: Perfil de roteirização
+            - combobox "Perfil de roteirização" [ref=e103]:
+              - option "Corredor interior"
+              - option "Last mile metropolitana" [selected]
+          - generic [ref=e104]:
+            - generic [ref=e105]: Partida
+            - textbox "Partida" [ref=e106]: 08:00
+      - group "Custo e pedágio" [ref=e107]:
+        - generic [ref=e109]:
+          - generic [ref=e110]:
+            - generic [ref=e111]: Placa
+            - textbox "Placa" [ref=e112]: ABC1D23
+          - generic [ref=e113]:
+            - generic [ref=e114]: Receita do frete (R$)
+            - spinbutton "Receita do frete (R$)" [ref=e115]: "1800"
+        - generic [ref=e116]:
+          - generic [ref=e117]:
+            - generic [ref=e118]: Modo de pedágio
+            - combobox "Modo de pedágio" [ref=e119]:
+              - option "Vale-pedágio (VPO)" [selected]
+              - option "Pedágio próprio"
+              - option "Embutido no frete"
+          - generic [ref=e120]:
+            - generic [ref=e121]: VPO
+            - combobox "VPO" [ref=e122]:
+              - option "Sem Parar · ABC1D23" [selected]
+              - option "Veloe · XYZ9K88"
+        - paragraph [ref=e123]: TAG TAG-001 · saldo R$ 480.00 · validade 2027-06-30
+        - generic [ref=e124]:
+          - generic [ref=e125]:
+            - checkbox "Evitar pedágio" [ref=e126]
+            - generic [ref=e127]: Evitar pedágio
+          - generic [ref=e128]:
+            - checkbox "Retornar à origem" [ref=e129]
+            - generic [ref=e130]: Retornar à origem
+      - button "Validar rota" [ref=e131] [cursor=pointer]
+    - generic [ref=e20]:
+      - paragraph [ref=e21]: Nenhuma rota validada ainda
+      - paragraph [ref=e22]: Preencha a simulação e clique em Validar rota. O resultado mostra o status do gate, a ordem calculada, o custo e a margem.
+  - generic [ref=e24]:
+    - generic [ref=e25]:
+      - generic [ref=e26]:
+        - heading "Integridade do cadastro" [level=2] [ref=e27]
+        - paragraph [ref=e28]: Varredura dos mesmos códigos que o gate usa na simulação.
+      - button "Atualizar diagnóstico" [ref=e29] [cursor=pointer]
+    - paragraph [ref=e132]: 1 ocorrência(s) em 1 código(s).
+    - list [ref=e133]:
+      - listitem [ref=e134]:
+        - code [ref=e135]: REVISAO_VENCIDA
+        - generic [ref=e136]: "1"
+    - list [ref=e137]:
+      - listitem [ref=e138]:
+        - generic [ref=e140]:
+          - code [ref=e141]: REVISAO_VENCIDA
+          - paragraph [ref=e142]: Carreta 02 (revisão vencida) já está com a revisão vencida.
+  - contentinfo [ref=e36]:
+    - paragraph [ref=e37]: Dados sintéticos do corredor Santos–São Paulo–Campinas–Ribeirão Preto. Nenhum mapa renderizado, nenhuma chave externa.
