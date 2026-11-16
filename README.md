@@ -108,6 +108,7 @@ docs/
   PLANO_VALIDA_ROTA.md
   PROPOSTA_DESIGN_SYSTEM.md
   PROPOSTA_SYSTEM_DESIGN.md
+  PROPOSTA_TELAS.md
   AUDITORIA_PRE_EXECUCAO.md
   plano-implementacao.md
 Dockerfile
