@@ -186,3 +186,30 @@ def test_conciliacao_de_pedagio_sem_lancamento(client):
     assert resposta.status_code == 200
     codigos = [a["codigo"] for a in resposta.json()["avisos"]]
     assert "PEDAGIO_DIVERGENTE" in codigos
+
+
+def test_sem_bundle_a_raiz_nao_e_montada(tmp_path, monkeypatch):
+    """Sem `index.html`, o processo é só API: nada de montar pasta inexistente."""
+    monkeypatch.setenv("VALIDA_ROTA_DIST", str(tmp_path / "nao-existe"))
+    app = criar_app(str(tmp_path / "sem_bundle.db"))
+    with TestClient(app) as c:
+        assert c.get("/api/health").status_code == 200
+        assert c.get("/").status_code == 404
+
+
+def test_bundle_presente_serve_interface_sem_engolir_a_api(tmp_path, monkeypatch):
+    bundle = tmp_path / "dist"
+    (bundle / "assets").mkdir(parents=True)
+    (bundle / "index.html").write_text("<!doctype html><title>ValidaRota</title>", encoding="utf-8")
+    (bundle / "assets" / "app.js").write_text("console.log('ok')", encoding="utf-8")
+    monkeypatch.setenv("VALIDA_ROTA_DIST", str(bundle))
+
+    app = criar_app(str(tmp_path / "com_bundle.db"))
+    with TestClient(app) as c:
+        raiz = c.get("/")
+        assert raiz.status_code == 200
+        assert "<title>ValidaRota</title>" in raiz.text
+        assert c.get("/assets/app.js").status_code == 200
+        # rotas /api continuam tendo precedência sobre o catch-all do bundle
+        assert c.get("/api/health").json()["status"] == "ok"
+        assert len(c.get("/api/nos").json()) > 0

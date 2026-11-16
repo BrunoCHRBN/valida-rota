@@ -1,0 +1,14 @@
+services:
+  validarota:
+    build: .
+    image: valida-rota:local
+    ports:
+      - "8000:8000"
+    environment:
+      VALIDA_ROTA_DB: /data/valida_rota.db
+    volumes:
+      - dados:/data
+    restart: unless-stopped
+
+volumes:
+  dados:

@@ -25,6 +25,17 @@ npm run dev
 
 O frontend usa proxy de `/api` para `http://localhost:8000`. Para apontar para outro backend, defina `VITE_API_URL`.
 
+### Com Docker (um processo só)
+
+```bash
+docker compose up --build
+# interface em http://localhost:8000, API no mesmo host
+```
+
+A imagem compila o bundle do Vite e o entrega pelo próprio FastAPI (`StaticFiles` montado depois das rotas `/api`). Isso elimina CORS em produção e faz do deploy um artefato único. O banco fica em `/data/valida_rota.db`, em volume nomeado: sobrevive a `docker compose down` e a restart do container.
+
+Sem `index.html` no diretório do bundle, o processo sobe como API pura — é o modo que os testes exercitam.
+
 Testes:
 
 ```bash
@@ -73,6 +84,8 @@ docs/
   PROPOSTA_SYSTEM_DESIGN.md
   AUDITORIA_PRE_EXECUCAO.md
   plano-implementacao.md
+Dockerfile
+docker-compose.yml
 ```
 
 ## Limitações declaradas

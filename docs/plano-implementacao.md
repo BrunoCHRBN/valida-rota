@@ -10,7 +10,7 @@
 | 2. Serviços puros | concluída | `grafo`, `supermatrix`, `otimizador`, `custo` com testes de valor esperado |
 | 3. Gate de mutação | concluída | 5 mutações executadas; uma delas revelou teste fraco, corrigido antes de restaurar |
 | 4. Gate e módulos de domínio | concluída | `validacao`, `comparativo`, `diagnostico`, `geocodificacao`, `pedagio` |
-| 5. API e SQLite | concluída | 17 rotas, seed determinístico, testes com `TestClient` |
+| 5. API e SQLite | concluída | 17 caminhos / 20 operações no `openapi.json`, seed determinístico, testes com `TestClient` |
 | 6. Geocodificação e VPO | concluída | provider sintético, validação de coordenadas, conciliação CSV |
 | 7. Frontend | concluída | React 19 + TS + Vite; build de produção passa |
 | 8. Verificação no navegador | parcial | layout desktop e mobile conferidos; contraste medido; falta varredura completa de teclado |
